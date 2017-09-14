@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Atom.cs" />
+    <Compile Include="Classes\CompositeParticle.cs" />
+    <Compile Include="Classes\Electron.cs" />
+    <Compile Include="Classes\ElementaryParticle.cs" />
+    <Compile Include="Classes\Molecule.cs" />
+    <Compile Include="Classes\Neutron.cs" />
+    <Compile Include="Classes\Nucleon.cs" />
+    <Compile Include="Classes\Particle.cs" />
+    <Compile Include="Classes\Proton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
