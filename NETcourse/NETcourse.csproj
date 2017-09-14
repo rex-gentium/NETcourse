@@ -43,20 +43,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Atom.cs" />
-    <Compile Include="Classes\CompositeParticle.cs" />
-    <Compile Include="Classes\Electron.cs" />
-    <Compile Include="Classes\ElementaryParticle.cs" />
-    <Compile Include="Classes\Molecule.cs" />
-    <Compile Include="Classes\Neutron.cs" />
-    <Compile Include="Classes\Nucleon.cs" />
-    <Compile Include="Classes\Particle.cs" />
-    <Compile Include="Classes\Proton.cs" />
+    <Compile Include="Classes\AbsoluteMonarchy.cs" />
+    <Compile Include="Classes\Country.cs" />
+    <Compile Include="Classes\DualisticMonarchy.cs" />
+    <Compile Include="Classes\MixedRepublic.cs" />
+    <Compile Include="Classes\Monarchy.cs" />
+    <Compile Include="Classes\ParliamentaryMonarchy.cs" />
+    <Compile Include="Classes\ParliamentaryRepublic.cs" />
+    <Compile Include="Classes\PresidentialRepublic.cs" />
+    <Compile Include="Classes\Republic.cs" />
+    <Compile Include="Factories\CountryAbstractFactory.cs" />
+    <Compile Include="Factories\DualisticCountryFactory.cs" />
+    <Compile Include="Factories\IndividualisticCountryFactory.cs" />
+    <Compile Include="Factories\ParliamentaryCountryFactory.cs" />
+    <Compile Include="Factories\Randomizer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="description.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
