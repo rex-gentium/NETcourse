@@ -18,6 +18,17 @@ namespace NETcourse.Classes
             IncreaseRoyalAuthority(authority);
         }
 
+        private String GetAbsoluteMonarchyStringInfo()
+        {
+            return GetMonarchTitle() + " is a sole and supreme ruler of his nation, his reign authority is "
+                + GetRoyalAuthority().ToString() + "/100\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetMonarchyStringInfo() + GetAbsoluteMonarchyStringInfo();
+        }
+
         public int GetRoyalAuthority()
         {
             return monarchAuthority;
@@ -39,10 +50,5 @@ namespace NETcourse.Classes
                 monarchAuthority = 0;
         }
 
-        public override string GetCountryIntroduction()
-        {
-            return GetMonarchTitle() + " " + GetMonarchName() + " of house " + GetMonarchDynasty() 
-                + " is the sole and supreme ruler of the people of " + GetName() + ". His royal palace is in " + GetCapital() + ".";
-        }
     }
 }

@@ -23,6 +23,13 @@ namespace NETcourse.Classes
             this.nextElectionDate = inaugurationDate.AddYears(this.electionCycleYears);
         }
 
+        protected String GetRepublicStringInfo()
+        {
+            return "President " + GetPresidentName() + " is head of state, inaugurated in " 
+                + GetInaugurationDate().ToShortDateString() + " for the next "
+                + GetElectionCycleYears().ToString() + " years.\n";
+        }
+        
         public String GetPresidentName()
         {
             return presidentName;

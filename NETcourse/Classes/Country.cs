@@ -23,7 +23,23 @@ namespace NETcourse.Classes
             this.allies = new LinkedList<Country>();
         }
 
-        public abstract String GetCountryIntroduction();
+        public abstract override String ToString();
+
+        protected String GetCountryStringInfo()
+        {
+            String res = "Nation of " + GetName() + "\n"
+                + "\twith capital in " + GetCapital() + "\n"
+                + "\tis populated by " + GetPopulation().ToString() + " inhabitans\n"
+                + "\tand posesses total wealth of $" + GetTreasury().ToString() + " millions\n";
+            if (allies.Count > 0)
+            {
+                res += "Allies: ";
+                foreach (Country ally in allies)
+                    res += ally.GetName() + ' ';
+                res += '\n';
+            }
+            return res;
+        }
 
         public String GetName() {
             return name;
@@ -80,12 +96,16 @@ namespace NETcourse.Classes
 
         public void AllyWith(Country ally)
         {
-            allies.AddLast(ally);
+            if (allies.Find(ally) == null)
+                allies.AddLast(ally);
+            if (ally.allies.Find(this) == null)
+                ally.allies.AddLast(this);
         }
 
         public void DissolveAlliance(Country ally)
         {
-            allies.Remove(ally);
+            allies.Remove(allies.Find(ally));
+            ally.allies.Remove(ally.allies.Find(this));
         }
 
     }

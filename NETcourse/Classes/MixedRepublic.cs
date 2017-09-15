@@ -63,9 +63,16 @@ namespace NETcourse.Classes
                 presidentApproval = 0;
         }
 
-        public override string GetCountryIntroduction()
+        private String GetMixedRepublicStringInfo()
         {
-            return "President " + GetPresidentName() + " is rules with the parliament over the " + GetName() + ", with their capital in " + GetCapital() + ".";
+            return "Both President and Parliament have the power, President decisions are approved by "
+                + GetPresidentApproval().ToString() + "/100 of population, and Parliament has "
+                + GetParliamentApproval().ToString() + "/100 electors support.\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetRepublicStringInfo() + GetMixedRepublicStringInfo();
         }
     }
 }

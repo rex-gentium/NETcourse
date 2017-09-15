@@ -19,10 +19,12 @@ namespace NETcourse
                 case 1: cfac = new DualisticCountryFactory(); break;
                 case 2: cfac = new ParliamentaryCountryFactory(); break;
             }
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 3; ++i)
             {
-                Console.WriteLine(cfac.CreateMonarchy().GetCountryIntroduction());
-                Console.WriteLine(cfac.CreateRepublic().GetCountryIntroduction());
+                Console.WriteLine(cfac.CreateMonarchy().ToString());
+                Console.WriteLine();
+                Console.WriteLine(cfac.CreateRepublic().ToString());
+                Console.WriteLine();
             }
             Console.ReadLine();
         }

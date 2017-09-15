@@ -25,6 +25,22 @@ namespace NETcourse.Classes
             royalMarriages = new LinkedList<Monarchy>();
         }
 
+        protected String GetMonarchyStringInfo()
+        {
+            String res = GetMonarchTitle() + ' ' + GetMonarchName()
+                + " of house " + GetMonarchDynasty() + " is a rightful monarch\n";
+            if (GetHeirName() != null)
+                res += GetHeirName() + ' ' + GetHeirDynasty() + " is heir to the throne.\n";
+            if (royalMarriages.Count > 0)
+            {
+                res += "Royal Marriages with: ";
+                foreach (Country marr in royalMarriages)
+                    res += marr.GetName() + ' ';
+                res += '\n';
+            }
+            return res;
+        }
+
         public String GetMonarchTitle()
         {
             return monarchTitle;
@@ -84,12 +100,16 @@ namespace NETcourse.Classes
 
         public void ArrangeRoyalMarriage(Monarchy with)
         {
-            royalMarriages.AddLast(with);
+            if (royalMarriages.Find(with) == null)
+                royalMarriages.AddLast(with);
+            if (with.royalMarriages.Find(this) == null)
+                with.royalMarriages.AddLast(with);
         }
 
         public void BreakRoyalMarriage(Monarchy with)
         {
-            royalMarriages.Remove(with);
+            royalMarriages.Remove(royalMarriages.Find(with));
+            with.royalMarriages.Remove(with.royalMarriages.Find(this));
         }
     }
 }

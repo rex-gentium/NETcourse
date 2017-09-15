@@ -39,10 +39,16 @@ namespace NETcourse.Classes
                 parliamentApproval = 0;
         }
 
-        public override string GetCountryIntroduction()
+        private String GetParliamentaryMonarchyStringInfo()
         {
-            return GetMonarchTitle() + " " + GetMonarchName() + " of house " + GetMonarchDynasty()
-                + " represents " + GetName() + ". " + GetName() + " is ruled by the parliament in its capital " + GetCapital() + ".";
+            return "Parliament rule over the nation, its decisions are approved by " 
+                + GetParliamentApproval().ToString() + "/100 of population. "
+                + GetMonarchTitle() + ' ' + GetMonarchName() + " is a simple representative of the country.\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetMonarchyStringInfo() + GetParliamentaryMonarchyStringInfo();
         }
     }
 }

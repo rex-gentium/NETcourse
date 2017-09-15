@@ -27,7 +27,8 @@ namespace NETcourse.Factories
                 Randomizer.RandomCityName(),
                 rand.Next(1000000000), rand.Next(1000000),
                 Randomizer.RandomPersonName() + " " + Randomizer.RandomDynastyName(),
-                new DateTime(), Convert.ToUInt32(rand.Next(4, 6)),
+                new DateTime(rand.Next(1700, 2017), rand.Next(12), rand.Next(28)), 
+                Convert.ToUInt32(rand.Next(4, 6)),
                 Convert.ToUInt32(rand.Next(100)));
         }
     }

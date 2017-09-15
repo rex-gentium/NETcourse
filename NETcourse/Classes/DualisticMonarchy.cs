@@ -20,6 +20,18 @@ namespace NETcourse.Classes
             IncreaseParliamentApproval(parliamentApproval);
         }
 
+        private String GetDualisticMonarchyStringInfo()
+        {
+            return GetMonarchTitle() + " and the Parliament rule over the nation, his authority is "
+                + GetRoyalAuthority().ToString() + "/100, and Parliament has " + GetParliamentApproval().ToString()
+                + "/100 electors approval.\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetMonarchyStringInfo() + GetDualisticMonarchyStringInfo();
+        }
+
         public int GetRoyalAuthority()
         {
             return monarchAuthority;
@@ -62,10 +74,5 @@ namespace NETcourse.Classes
                 parliamentApproval = 0;
         }
 
-        public override string GetCountryIntroduction()
-        {
-            return GetMonarchTitle() + " " + GetMonarchName() + " of house " + GetMonarchDynasty()
-                + " is the head of nation of " + GetName() + ", backed by the parliament in " + GetCapital() + ".";
-        }
     }
 }

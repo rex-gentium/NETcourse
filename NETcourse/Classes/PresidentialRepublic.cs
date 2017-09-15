@@ -40,9 +40,15 @@ namespace NETcourse.Classes
                 presidentApproval = 0;
         }
 
-        public override string GetCountryIntroduction()
+        private String GetPresidentialRepublicStringInfo()
         {
-            return "President " + GetPresidentName() + " is elected to rule the nation of " + GetName() + ". His office is in the city of " + GetCapital() + ".";
+            return "President wields the power in country, "
+                + GetPresidentApproval().ToString() + "/100 of population approves his government.\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetRepublicStringInfo() + GetPresidentialRepublicStringInfo();
         }
     }
 }

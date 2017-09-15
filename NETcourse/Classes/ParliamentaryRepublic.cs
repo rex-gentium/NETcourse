@@ -40,9 +40,16 @@ namespace NETcourse.Classes
                 parliamentApproval = 0;
         }
 
-        public override string GetCountryIntroduction()
+        private String GetParliamentaryRepublicStringInfo()
         {
-            return "President " + GetPresidentName() + " represents " + GetName() + " and its parliament located in the city of " + GetCapital() + ".";
+            return "Nation is ruled by the Parliament, its decisions are approved by "
+                + GetParliamentApproval().ToString() + "/100 of population. "
+                + GetPresidentName() + " is a simple representative of the country.\n";
+        }
+
+        public override String ToString()
+        {
+            return GetCountryStringInfo() + GetRepublicStringInfo() + GetParliamentaryRepublicStringInfo();
         }
     }
 }
