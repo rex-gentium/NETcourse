@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Country : ICloneable, IRivalry<Country>
+    abstract class Country : ICloneable, IRivalry<Country>, IComparable
     {
         private String name;
         private String capital;
@@ -15,6 +15,7 @@ namespace NETcourse.Classes
         private int population;
         private Country rival;
         private LinkedList<Country> allies;
+        private static Func<Country, Country, int> comparator;
 
         protected Country(String name, String capitalName, int population, int treasury)
         {
@@ -121,6 +122,16 @@ namespace NETcourse.Classes
         public void SetRival(Country rival)
         {
             this.rival = rival;
+        }
+
+        internal static void SetComparator<T>(Func<T, T, int> comparator) where T : Country
+        {
+            Country.comparator = (Func<Country, Country, int>)comparator;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return comparator.Invoke(this, (Country)obj);
         }
     }
 }

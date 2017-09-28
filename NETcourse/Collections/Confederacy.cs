@@ -51,7 +51,7 @@ namespace NETcourse.Collections
             if (Contains(item)) return;
             if (size >= countries.Length)
             {
-                T[] newCountries = new T[countries.Length * 2];
+                T[] newCountries = new T[(countries.Length > 0) ? countries.Length * 2 : 1];
                 for (int i = 0; i < size; ++i)
                     newCountries[i] = (T)countries[i];
                 countries = newCountries;
@@ -105,5 +105,23 @@ namespace NETcourse.Collections
         {
             return this.GetEnumerator();
         }
+
+        public void Sort(Func<T, T, int> comparator)
+        {
+            Country.SetComparator(comparator);
+            T[] copyForSort = new T[size];
+            Array.Copy(countries, copyForSort, size);
+            Array.Sort(copyForSort);
+            Array.Copy(copyForSort, countries, size);
+        }
+
+        public override string ToString()
+        {
+            String res = "";
+            for (int i = 0; i < size; ++i)
+                res += countries[i].GetName() + '\n';
+            return res;
+        }
+
     }
 }

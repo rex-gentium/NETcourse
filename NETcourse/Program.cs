@@ -12,6 +12,10 @@ namespace NETcourse
 {
     class Program
     {
+        static int CompareCountryName(Country a, Country b) {
+            return a.GetName().CompareTo(b.GetName());
+        }
+
         static void Main(string[] args)
         {
             //
@@ -25,7 +29,18 @@ namespace NETcourse
             IPersonalizable<Republic> authoritanRepublic = new PresidentialRepublic("Belarus", "Minsk", 
                 9498700, 55000, "Alexander Lukashenko", new DateTime(1994, 7, 20), 5, 50);
             IPersonalizable<PresidentialRepublic> authoritanPresidentalRepublic = authoritanRepublic;
+
             authoritanPresidentalRepublic.ArrangePersonalNegotiations(russia);
+
+            CountryAbstractFactory factory = new DualisticCountryFactory();
+            Confederacy<Country> countryList = new Confederacy<Country>();
+            for (int i = 0; i < 10; ++i)
+                countryList.Add(factory.CreateRepublic());
+            Console.WriteLine("Initial collection:");
+            Console.WriteLine(countryList.ToString());
+            countryList.Sort(CompareCountryName);
+            Console.WriteLine("Sorted by name:");
+            Console.WriteLine(countryList.ToString());
             Console.ReadLine();
         }
     }
