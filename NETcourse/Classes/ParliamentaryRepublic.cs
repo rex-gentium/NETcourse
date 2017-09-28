@@ -19,6 +19,14 @@ namespace NETcourse.Classes
             IncreaseParliamentApproval(parliamentApproval);
         }
 
+        public override object Clone()
+        {
+            return new ParliamentaryRepublic(GetName(), GetCapital(), GetPopulation(),
+                GetTreasury(), GetPresidentName(), GetInaugurationDate(),
+                Convert.ToUInt32(GetElectionCycleYears()),
+                Convert.ToUInt32(GetParliamentApproval()));
+        }
+
         public int GetParliamentApproval()
         {
             return parliamentApproval;

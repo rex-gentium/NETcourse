@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Country
+    abstract class Country : ICloneable
     {
         private String name;
         private String capital;
@@ -108,5 +108,6 @@ namespace NETcourse.Classes
             ally.allies.Remove(ally.allies.Find(this));
         }
 
+        public abstract object Clone();
     }
 }

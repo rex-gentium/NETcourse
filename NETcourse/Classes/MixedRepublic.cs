@@ -21,6 +21,14 @@ namespace NETcourse.Classes
             IncreasePresidentApproval(presidentApproval);
         }
 
+        public override object Clone()
+        {
+            return new MixedRepublic(GetName(), GetCapital(), GetPopulation(),
+                GetTreasury(), GetPresidentName(), GetInaugurationDate(),
+                Convert.ToUInt32(GetElectionCycleYears()),
+                Convert.ToUInt32(GetParliamentApproval()), Convert.ToUInt32(GetPresidentApproval()));
+        }
+
         public int GetParliamentApproval()
         {
             return parliamentApproval;

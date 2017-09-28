@@ -18,6 +18,13 @@ namespace NETcourse.Classes
             IncreaseParliamentApproval(parliamentApproval);
         }
 
+        public override object Clone()
+        {
+            return new ParliamentaryMonarchy(GetName(), GetCapital(), GetPopulation(),
+                GetTreasury(), GetMonarchTitle(), GetMonarchName(), GetMonarchDynasty(),
+                Convert.ToUInt32(GetParliamentApproval()));
+        }
+
         public int GetParliamentApproval()
         {
             return parliamentApproval;

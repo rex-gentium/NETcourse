@@ -18,6 +18,13 @@ namespace NETcourse.Classes
             IncreaseRoyalAuthority(authority);
         }
 
+        public override object Clone()
+        {
+            return new AbsoluteMonarchy(GetName(), GetCapital(), GetPopulation(),
+                GetTreasury(), GetMonarchTitle(), GetMonarchName(), GetMonarchDynasty(),
+                Convert.ToUInt32(GetRoyalAuthority()));
+        }
+
         private String GetAbsoluteMonarchyStringInfo()
         {
             return GetMonarchTitle() + " is a sole and supreme ruler of his nation, his reign authority is "

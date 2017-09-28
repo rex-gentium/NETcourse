@@ -20,6 +20,13 @@ namespace NETcourse.Classes
             IncreaseParliamentApproval(parliamentApproval);
         }
 
+        public override object Clone()
+        {
+            return new DualisticMonarchy(GetName(), GetCapital(), GetPopulation(),
+                GetTreasury(), GetMonarchTitle(), GetMonarchName(), GetMonarchDynasty(),
+                Convert.ToUInt32(GetRoyalAuthority()), Convert.ToUInt32(GetParliamentApproval()));
+        }
+
         private String GetDualisticMonarchyStringInfo()
         {
             return GetMonarchTitle() + " and the Parliament rule over the nation, his authority is "

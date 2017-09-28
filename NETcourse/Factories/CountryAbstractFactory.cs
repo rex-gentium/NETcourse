@@ -12,5 +12,9 @@ namespace NETcourse.Factories
         public abstract Monarchy CreateMonarchy();
         public abstract Republic CreateRepublic();
 
+        public static Country CreateCopy(Country country)
+        {
+            return new AbsoluteMonarchy();
+        }
     }
 }
