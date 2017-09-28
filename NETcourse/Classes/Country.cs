@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NETcourse.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Country : ICloneable
+    abstract class Country : ICloneable, IRivalry<Country>
     {
         private String name;
         private String capital;
         private int treasury;
         private int population;
+        private Country rival;
         private LinkedList<Country> allies;
 
         protected Country(String name, String capitalName, int population, int treasury)
@@ -21,6 +23,7 @@ namespace NETcourse.Classes
             this.population = population;
             this.treasury = treasury;
             this.allies = new LinkedList<Country>();
+            this.rival = null;
         }
 
         public abstract override String ToString();
@@ -109,5 +112,15 @@ namespace NETcourse.Classes
         }
 
         public abstract object Clone();
+
+        public Country GetRival()
+        {
+            return rival;
+        }
+
+        public void SetRival(Country rival)
+        {
+            this.rival = rival;
+        }
     }
 }

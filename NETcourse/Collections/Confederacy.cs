@@ -8,20 +8,20 @@ using System.Collections;
 
 namespace NETcourse.Collections
 {
-    class Confederation : ICollection<Country>
+    class Confederacy<T> : ICollection<T> where T:Country
     {
         Country[] countries = new Country[0];
         int size = 0;
 
-        class Enumerator : IEnumerator<Country>
+        class Enumerator<T> : IEnumerator<T> where T:Country
         {
-            Confederation collection;
+            Confederacy<T> collection;
             int index;
 
-            public Country Current => collection.countries[index];
+            public T Current => (T)collection.countries[index];
             object IEnumerator.Current => collection.countries[index];
 
-            public Enumerator(Confederation collection, int index)
+            public Enumerator(Confederacy<T> collection, int index)
             {
                 this.collection = collection;
                 this.index = index;
@@ -46,14 +46,14 @@ namespace NETcourse.Collections
         public bool IsReadOnly => false;
 
         /* Добавляет элемент в коллекцию */
-        public void Add(Country item)
+        public void Add(T item)
         {
             if (Contains(item)) return;
             if (size >= countries.Length)
             {
-                Country[] newCountries = new Country[countries.Length * 2];
+                T[] newCountries = new T[countries.Length * 2];
                 for (int i = 0; i < size; ++i)
-                    newCountries[i] = countries[i];
+                    newCountries[i] = (T)countries[i];
                 countries = newCountries;
             }
             countries[size++] = item;
@@ -62,11 +62,11 @@ namespace NETcourse.Collections
         /* Удаляет все элементы из коллекции */
         public void Clear()
         {
-            countries = new Country[0];
+            countries = new T[0];
         }
         
         /*Определяет, содержит ли коллекция указанное значение*/
-        public bool Contains(Country item)
+        public bool Contains(T item)
         {
             for (int i = 0; i < size; ++i)
                 if (countries[i].Equals(item))
@@ -75,20 +75,20 @@ namespace NETcourse.Collections
         }
         
         /* Копирует элементы коллекции в массив Array, начиная с указанного индекса массива Array */
-        public void CopyTo(Country[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex)
         {
             for (int i = 0; i < size && arrayIndex + i < array.Length; ++i)
-                array[arrayIndex + i] = (Country) countries[i].Clone();
+                array[arrayIndex + i] = (T) countries[i].Clone();
         }
         
         /* Возвращает перечислитель, выполняющий перебор элементов в коллекции. */
-        public IEnumerator<Country> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return new Enumerator(this, 0);
+            return new Enumerator<T>(this, 0);
         }
 
         /* Удаляет элемент из коллекции, если он там присутствует. Возращает результат удаления. */
-        public bool Remove(Country item)
+        public bool Remove(T item)
         {
             for (int i = 0; i < size; ++i)
                 if (countries[i].Equals(item))

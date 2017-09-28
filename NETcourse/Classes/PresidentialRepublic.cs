@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NETcourse.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    class PresidentialRepublic : Republic
+    class PresidentialRepublic : Republic, IPersonalizable<Republic>
     {
         public int presidentApproval;
 
@@ -57,6 +58,11 @@ namespace NETcourse.Classes
         public override String ToString()
         {
             return GetCountryStringInfo() + GetRepublicStringInfo() + GetPresidentialRepublicStringInfo();
+        }
+
+        public void ArrangePersonalNegotiations(Republic rival)
+        {
+            Console.WriteLine("Presidents of " + GetName() + " and " + rival.GetName() + " have had a private negotiation.");
         }
     }
 }

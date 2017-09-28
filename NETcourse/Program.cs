@@ -1,4 +1,7 @@
-﻿using NETcourse.Factories;
+﻿using NETcourse.Classes;
+using NETcourse.Collections;
+using NETcourse.Factories;
+using NETcourse.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +14,18 @@ namespace NETcourse
     {
         static void Main(string[] args)
         {
-            int governmentStyle = new Random().Next(3);
-            CountryAbstractFactory cfac = null;
-            switch(governmentStyle)
-            {
-                case 0: cfac = new IndividualisticCountryFactory(); break;
-                case 1: cfac = new DualisticCountryFactory(); break;
-                case 2: cfac = new ParliamentaryCountryFactory(); break;
-            }
-            for (int i = 0; i < 3; ++i)
-            {
-                Console.WriteLine(cfac.CreateMonarchy().ToString());
-                Console.WriteLine();
-                Console.WriteLine(cfac.CreateRepublic().ToString());
-                Console.WriteLine();
-            }
+            //
+            PresidentialRepublic russia = new PresidentialRepublic("Russia", "Moscow", 
+                145000000, 12000000, "Vladimir Putin", new DateTime(2012, 5, 7), 6, 86);
+
+            // covarience
+            IEnumerable<AbsoluteMonarchy> absoluteMonarchiesAlliance = new Confederacy<AbsoluteMonarchy>();
+            IEnumerable<Monarchy> monarchiesAlliance = absoluteMonarchiesAlliance;
+            // contravarience
+            IPersonalizable<Republic> authoritanRepublic = new PresidentialRepublic("Belarus", "Minsk", 
+                9498700, 55000, "Alexander Lukashenko", new DateTime(1994, 7, 20), 5, 50);
+            IPersonalizable<PresidentialRepublic> authoritanPresidentalRepublic = authoritanRepublic;
+            authoritanPresidentalRepublic.ArrangePersonalNegotiations(russia);
             Console.ReadLine();
         }
     }

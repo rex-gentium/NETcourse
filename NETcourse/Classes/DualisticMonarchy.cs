@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NETcourse.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,5 @@ namespace NETcourse.Classes
             if (parliamentApproval < 0)
                 parliamentApproval = 0;
         }
-
     }
 }

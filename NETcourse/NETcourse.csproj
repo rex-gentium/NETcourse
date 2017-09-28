@@ -52,12 +52,14 @@
     <Compile Include="Classes\ParliamentaryRepublic.cs" />
     <Compile Include="Classes\PresidentialRepublic.cs" />
     <Compile Include="Classes\Republic.cs" />
-    <Compile Include="Collections\Confederation.cs" />
+    <Compile Include="Collections\Confederacy.cs" />
     <Compile Include="Factories\CountryAbstractFactory.cs" />
     <Compile Include="Factories\DualisticCountryFactory.cs" />
     <Compile Include="Factories\IndividualisticCountryFactory.cs" />
     <Compile Include="Factories\ParliamentaryCountryFactory.cs" />
     <Compile Include="Factories\Randomizer.cs" />
+    <Compile Include="Interfaces\IPersonalizable.cs" />
+    <Compile Include="Interfaces\IRivalry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
