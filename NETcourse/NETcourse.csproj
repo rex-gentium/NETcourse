@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Classes\AbsoluteMonarchy.cs" />
     <Compile Include="Classes\Country.cs" />
+    <Compile Include="Classes\Debug.cs" />
     <Compile Include="Classes\DualisticMonarchy.cs" />
     <Compile Include="Classes\MixedRepublic.cs" />
     <Compile Include="Classes\Monarchy.cs" />

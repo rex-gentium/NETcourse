@@ -10,7 +10,8 @@ namespace NETcourse.Collections
 {
     class Confederacy<T> : ICollection<T> where T:Country
     {
-        Country[] countries = new Country[0];
+        string name;
+        T[] countries = new T[0];
         int size = 0;
 
         class Enumerator<T> : IEnumerator<T> where T:Country
@@ -39,11 +40,17 @@ namespace NETcourse.Collections
                 index = 0;
             }
         }
-
+        
         /* Получает число элементов, содержащихся в коллекции */
         public int Count => size;
         /* Получает значение, указывающее, является ли объект коллекции доступным только для чтения */
         public bool IsReadOnly => false;
+
+        public Confederacy(string name)
+        {
+            this.name = name;
+            Debug.Log(name + " (Confederacy) installed");
+        }
 
         /* Добавляет элемент в коллекцию */
         public void Add(T item)
@@ -57,6 +64,7 @@ namespace NETcourse.Collections
                 countries = newCountries;
             }
             countries[size++] = item;
+            Debug.Log(item.GetName() + " joined the " + name + " (confederacy)");
         }
         
         /* Удаляет все элементы из коллекции */
@@ -106,13 +114,14 @@ namespace NETcourse.Collections
             return this.GetEnumerator();
         }
 
-        public void Sort(Func<T, T, int> comparator)
+        public void Sort(IComparer<T> comparer)
         {
-            Country.SetComparator(comparator);
-            T[] copyForSort = new T[size];
-            Array.Copy(countries, copyForSort, size);
-            Array.Sort(copyForSort);
-            Array.Copy(copyForSort, countries, size);
+            Array.Sort<T>(countries, 0, size, comparer);
+        }
+
+        public void DoAction(Action<Confederacy<T>> action)
+        {
+            action.Invoke(this);
         }
 
         public override string ToString()

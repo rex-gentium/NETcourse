@@ -126,7 +126,7 @@ namespace NETcourse.Classes
 
         internal static void SetComparator<T>(Func<T, T, int> comparator) where T : Country
         {
-            Country.comparator = (Func<Country, Country, int>)comparator;
+            Country.comparator = (Func<Country, Country, int>) comparator;
         }
 
         public int CompareTo(object obj)

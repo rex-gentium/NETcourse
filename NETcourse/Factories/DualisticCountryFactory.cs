@@ -24,13 +24,15 @@ namespace NETcourse.Factories
         public override Republic CreateRepublic()
         {
             Random rand = new Random();
-            return new MixedRepublic(Randomizer.RandomCountryName(),
+            Republic res = new MixedRepublic(Randomizer.RandomCountryName(),
                 Randomizer.RandomCityName(),
                 rand.Next(1000000000), rand.Next(1000000),
                 Randomizer.RandomPersonName() + " " + Randomizer.RandomDynastyName(),
-                new DateTime(rand.Next(1700, 2017), rand.Next(12), rand.Next(28)),
+                new DateTime(rand.Next(1700, 2017), rand.Next(11), rand.Next(28)),
                 Convert.ToUInt32(rand.Next(3, 6)),
                 Convert.ToUInt32(rand.Next(100)), Convert.ToUInt32(rand.Next(100)));
+            //Debug.Log("Created new duallistic republic: " + res.GetName());
+            return res;
         }
     }
 }
