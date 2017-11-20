@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Debug
+    public abstract class Debug
     {
         public enum MessageLayer
         {

@@ -1,5 +1,6 @@
 ﻿using NETcourse.Classes;
 using NETcourse.Collections;
+using NETcourse.Exceptions;
 using NETcourse.Factories;
 using NETcourse.Interfaces;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace NETcourse
@@ -33,48 +35,117 @@ namespace NETcourse
             return a.GetName().CompareTo(b.GetName());
         }
 
-        static void PrintCountryComparison(Country x, Country y, IComparer<Country> comparer)
+        static int CountryPopulationComparer(Country a, Country b)
         {
-            int res = comparer.Compare(x, y);
-            if (res > 0)
-                Console.WriteLine(x.GetName() + " is bigger than " + y.GetName());
-            else if (res < 0)
-                Console.WriteLine(x.GetName() + " is less than " + y.GetName());
-            else
-                Console.WriteLine(x.GetName() + " equals " + y.GetName());
-            Console.WriteLine();
+            if (a == null && b == null) return 0;
+            if (a == null && b != null) return -1;
+            if (a != null && b == null) return 1;
+            return a.GetPopulation().CompareTo(b.GetPopulation());
         }
 
-        static void DoAction(Action<Country, Country, IComparer<Country>> action, 
-            Country arg1, Country arg2, IComparer<Country> arg3)
-        {
-            action.Invoke(arg1, arg2, arg3);
-        }
+        static uint countryListSize = 10;
+        static CountryComparer defaultComparer = new CountryComparer(CountryNameComparer);
+        static TextWriter logFile = null;
 
         static void Main(string[] args)
         {
-            TextWriter outFile = new StreamWriter("C:\\dump\\NET.txt");
-            Debug.Log("Switching to File output", Debug.MessageLayer.WARNING);
-            Debug.LogAction = outFile.WriteLine;
-            
+            try
+            {
+                ConfigureApplication("config.ini");
+                if (countryListSize == 0)
+                    Debug.Log("Country list size is set to 0. Is that right?", Debug.MessageLayer.WARNING);
+            }
+            catch (ConfigurationException e)
+            {
+                Console.WriteLine(e.ToString());
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
             CountryAbstractFactory factory = new DualisticCountryFactory();
             Confederacy<Country> countryList = new Confederacy<Country>("Republican Union");
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < countryListSize; ++i)
                 countryList.Add(factory.CreateRepublic());
 
             Console.WriteLine("Initial collection:");
             Console.WriteLine(countryList.ToString());
 
-            DoAction(PrintCountryComparison, countryList.First(), countryList.Last(),
-                new CountryComparer(CountryNameComparer));
-
-            countryList.Sort(new CountryComparer(CountryNameComparer));
+            countryList.Sort(defaultComparer);
 
             Console.WriteLine("Sorted by name:");
             Console.WriteLine(countryList.ToString());
             Console.ReadLine();
 
-            outFile.Close();
+            logFile?.Close();
+        }
+
+        private static void ConfigureApplication(string configFileName)
+        {
+            try
+            {
+                TextReader configFile = new StreamReader(configFileName);
+                string line;
+                while ((line = configFile.ReadLine()) != null)
+                {
+                    string[] contents = Regex.Split(line, @"\s*=\s*");
+                    if (contents.Length < 2)
+                        throw new ConfigurationException("The configuration file line \'" + line + "\' seems to be invalid");
+                    string configProperty = contents[0], configValue = contents[1];
+                    switch (configProperty)
+                    {
+                        case "DefaultLogStream": ConfigureLogStream(configValue); break;
+                        case "DefaultComparer": ConfigureComparer(configValue); break;
+                        case "CountryListSize": ConfigureListSize(configValue); break;
+                    }
+                }
+                configFile.Close();
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new ConfigurationException("Configuration file not found", e);
+            }
+            
+        }
+
+        private static void ConfigureListSize(string configValue)
+        {
+            try
+            {
+                countryListSize = UInt32.Parse(configValue);
+            }
+            catch (Exception e)
+            {
+                throw new ConfigurationException("Error occured when parsing \'" + configValue + "\' to unsigned integer", e);
+            }
+        }
+
+        private static void ConfigureComparer(string configValue)
+        {
+            switch(configValue.ToLower())
+            {
+                case "name": defaultComparer = new CountryComparer(CountryNameComparer); break;
+                case "population": defaultComparer = new CountryComparer(CountryPopulationComparer); break;
+                default: throw new ConfigurationException("Unknown comparement property \'" + configValue + "\'");
+            }
+        }
+
+        private static void ConfigureLogStream(string configValue)
+        {
+            configValue = configValue.ToLower();
+            if (configValue.Equals("console"))
+                Debug.LogAction = Console.WriteLine;
+            else
+            {
+                try
+                {
+                    logFile = new StreamWriter(configValue);
+                    Debug.LogAction = logFile.WriteLine;
+                }
+                catch
+                {
+                    throw new ConfigurationException("File \'" + configValue + "\' is invalid or disk writing permission denied");
+                }
+            }
         }
     }
 }

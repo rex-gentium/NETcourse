@@ -54,6 +54,7 @@
     <Compile Include="Classes\PresidentialRepublic.cs" />
     <Compile Include="Classes\Republic.cs" />
     <Compile Include="Collections\Confederacy.cs" />
+    <Compile Include="Exceptions\ConfigurationException.cs" />
     <Compile Include="Factories\CountryAbstractFactory.cs" />
     <Compile Include="Factories\DualisticCountryFactory.cs" />
     <Compile Include="Factories\IndividualisticCountryFactory.cs" />
