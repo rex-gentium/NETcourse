@@ -70,7 +70,9 @@ namespace NETcourse
             Console.WriteLine("Initial collection:");
             Console.WriteLine(countryList.ToString());
 
-            countryList.Sort(defaultComparer);
+            Task<bool> x = countryList.Sort(defaultComparer);
+            Console.WriteLine("Main thread is waiting for sort...");
+            bool isFinished = x.Result;
 
             Console.WriteLine("Sorted by name:");
             Console.WriteLine(countryList.ToString());

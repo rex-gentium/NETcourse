@@ -114,9 +114,33 @@ namespace NETcourse.Collections
             return this.GetEnumerator();
         }
 
-        public void Sort(IComparer<T> comparer)
+        public async Task<bool> Sort(IComparer<T> comparer)
         {
-            Array.Sort<T>(countries, 0, size, comparer);
+            Debug.Log("Sorting started");
+            await Task.Run(() => SortCountriesBy(comparer));
+            Debug.Log("Sorting finished");
+            return true;
+        }
+
+        private void SortCountriesBy(IComparer<T> comparer)
+        {
+            for (int i = 0; i < size; ++i)
+            {
+                bool wasSwapped = false;
+                int lastSwap = 0;
+                for (int j = 0; j < size - 1; ++j)
+                    if (comparer.Compare(countries[j], countries[j + 1]) > 0)
+                    {
+                        T temp = countries[j];
+                        countries[j] = countries[j + 1];
+                        countries[j + 1] = temp;
+                        wasSwapped = true;
+                        lastSwap = j;
+                    }
+                float sortedRatio = 100.0f * (1.0f - lastSwap / (float)size);
+                Debug.Log(sortedRatio.ToString("0") + "% of elements sorted");
+                if (!wasSwapped) break;
+            }
         }
 
         public void DoAction(Action<Confederacy<T>> action)
