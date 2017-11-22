@@ -2,14 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    class ParliamentaryMonarchy : Monarchy
+    [Serializable]
+    [DataContract]
+    public class ParliamentaryMonarchy : Monarchy
     {
-        private int parliamentApproval;
+        [DataMember]
+        public int parliamentApproval;
+
+        public ParliamentaryMonarchy() : base() { }
 
         public ParliamentaryMonarchy(String name, String capitalName, int population, int treasury,
             String monarchTitle, String monarchName, String monarchDynasty, uint parliamentApproval)

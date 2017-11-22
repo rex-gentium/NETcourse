@@ -5,14 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Threading;
 
 namespace NETcourse.Collections
 {
-    class Confederacy<T> : ICollection<T> where T:Country
+    [Serializable]
+    public class Confederacy<T> : ICollection<T> where T:Country
     {
-        string name;
-        T[] countries = new T[0];
-        int size = 0;
+        public string name;
+        public T[] countries = new T[0];
+        private int size = 0;
 
         class Enumerator<T> : IEnumerator<T> where T:Country
         {
@@ -45,6 +47,8 @@ namespace NETcourse.Collections
         public int Count => size;
         /* Получает значение, указывающее, является ли объект коллекции доступным только для чтения */
         public bool IsReadOnly => false;
+
+        public Confederacy() { }
 
         public Confederacy(string name)
         {

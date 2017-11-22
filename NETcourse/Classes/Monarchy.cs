@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Monarchy : Country
+    [DataContract]
+    public abstract class Monarchy : Country
     {
-        private String monarchTitle;
-        private String monarchName;
-        private String monarchDynasty;
-        private String heirName;
-        private String heirDynasty;
+        [DataMember]
+        public String monarchTitle;
+        [DataMember]
+        public String monarchName;
+        [DataMember]
+        public String monarchDynasty;
+        [DataMember]
+        public String heirName;
+        [DataMember]
+        public String heirDynasty;
         private LinkedList<Monarchy> royalMarriages;
+
+        protected Monarchy(): base()
+        {
+            royalMarriages = new LinkedList<Monarchy>();
+        }
 
         protected Monarchy(String name, String capitalName, int population, int treasury,
             String monarchTitle, String monarchName, String monarchDynasty) 
@@ -31,7 +43,7 @@ namespace NETcourse.Classes
                 + " of house " + GetMonarchDynasty() + " is a rightful monarch\n";
             if (GetHeirName() != null)
                 res += GetHeirName() + ' ' + GetHeirDynasty() + " is heir to the throne.\n";
-            if (royalMarriages.Count > 0)
+            if (royalMarriages != null && royalMarriages.Count > 0)
             {
                 res += "Royal Marriages with: ";
                 foreach (Country marr in royalMarriages)

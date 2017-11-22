@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace NETcourse.Classes
 {
-    class MixedRepublic : Republic
+    [Serializable]
+    [DataContract]
+    public class MixedRepublic : Republic
     {
+        [DataMember]
         public int parliamentApproval;
+        [DataMember]
         public int presidentApproval;
+
+        public MixedRepublic(): base() { }
 
         public MixedRepublic(String name, String capitalName, int population,
             int treasury, String presidentName, DateTime inaugurationDate,

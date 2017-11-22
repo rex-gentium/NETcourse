@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace NETcourse
 {
@@ -79,6 +81,38 @@ namespace NETcourse
             Console.ReadLine();
 
             logFile?.Close();
+
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Confederacy<Country>), 
+                new Type[] { typeof(AbsoluteMonarchy), typeof(DualisticMonarchy), typeof(ParliamentaryMonarchy),
+                typeof(ParliamentaryRepublic), typeof(MixedRepublic), typeof(PresidentialRepublic)});
+            using (FileStream fs = new FileStream(countryList.name + ".xml", FileMode.OpenOrCreate))
+            {
+                xmlSerializer.Serialize(fs, countryList);
+            }
+
+            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Confederacy<Country>),
+                new Type[] { typeof(AbsoluteMonarchy), typeof(DualisticMonarchy), typeof(ParliamentaryMonarchy),
+                typeof(ParliamentaryRepublic), typeof(MixedRepublic), typeof(PresidentialRepublic)});
+            using (FileStream fs = new FileStream(countryList.name + ".json", FileMode.OpenOrCreate))
+            {
+                jsonSerializer.WriteObject(fs, countryList);
+            }
+
+            xmlSerializer = new XmlSerializer(typeof(AbsoluteMonarchy));
+            jsonSerializer = new DataContractJsonSerializer(typeof(AbsoluteMonarchy));
+            using (FileStream fs = new FileStream("arabia.xml", FileMode.Open))
+            {
+                Country xmlArabia = xmlSerializer.Deserialize(fs) as Country;
+                Console.WriteLine(xmlArabia.ToString());
+                Console.ReadLine();
+            }
+            using (FileStream fs = new FileStream("arabia.json", FileMode.Open))
+            {
+                Country jsonArabia = jsonSerializer.ReadObject(fs) as Country;
+                Console.WriteLine(jsonArabia.ToString());
+                Console.ReadLine();
+            }
+
         }
 
         private static void ConfigureApplication(string configFileName)

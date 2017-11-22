@@ -1,21 +1,25 @@
 ﻿using NETcourse.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace NETcourse.Classes
 {
-    abstract class Country : ICloneable, IRivalry<Country>, IComparable
+    [DataContract]
+    public abstract class Country : ICloneable, IRivalry<Country>
     {
-        private String name;
-        private String capital;
-        private int treasury;
-        private int population;
+        [DataMember]
+        public String name;
+        [DataMember]
+        public String capital;
+        [DataMember]
+        public int treasury;
+        [DataMember]
+        public int population;
         private Country rival;
         private LinkedList<Country> allies;
-        private static Func<Country, Country, int> comparator;
+
+        protected Country() { this.allies = new LinkedList<Country>(); }
 
         protected Country(String name, String capitalName, int population, int treasury)
         {
@@ -35,7 +39,7 @@ namespace NETcourse.Classes
                 + "\twith capital in " + GetCapital() + "\n"
                 + "\tis populated by " + GetPopulation().ToString() + " inhabitans\n"
                 + "\tand posesses total wealth of $" + GetTreasury().ToString() + " millions\n";
-            if (allies.Count > 0)
+            if (allies != null && allies.Count > 0)
             {
                 res += "Allies: ";
                 foreach (Country ally in allies)
@@ -124,14 +128,5 @@ namespace NETcourse.Classes
             this.rival = rival;
         }
 
-        internal static void SetComparator<T>(Func<T, T, int> comparator) where T : Country
-        {
-            Country.comparator = (Func<Country, Country, int>) comparator;
-        }
-
-        public int CompareTo(object obj)
-        {
-            return comparator.Invoke(this, (Country)obj);
-        }
     }
 }

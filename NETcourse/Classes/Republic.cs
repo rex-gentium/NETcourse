@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    abstract class Republic : Country
+    [DataContract]
+    public abstract class Republic : Country
     {
-        private String presidentName;
-        private DateTime inaugurationDate;
-        private int electionCycleYears;
-        private DateTime nextElectionDate;
+        [DataMember]
+        public String presidentName;
+        [DataMember]
+        public DateTime inaugurationDate;
+        [DataMember]
+        public int electionCycleYears;
+        [DataMember]
+        public DateTime nextElectionDate;
+
+        protected Republic(): base() { }
 
         protected Republic(String name, String capitalName, int population,
             int treasury, String presidentName, DateTime inaugurationDate, uint electionCycleYears)

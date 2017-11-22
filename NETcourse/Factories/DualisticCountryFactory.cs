@@ -28,7 +28,7 @@ namespace NETcourse.Factories
                 Randomizer.RandomCityName(),
                 rand.Next(1000000000), rand.Next(1000000),
                 Randomizer.RandomPersonName() + " " + Randomizer.RandomDynastyName(),
-                new DateTime(rand.Next(1700, 2017), rand.Next(11), rand.Next(28)),
+                new DateTime(rand.Next(1700, 2017), rand.Next(1, 12), rand.Next(1, 28)),
                 Convert.ToUInt32(rand.Next(3, 6)),
                 Convert.ToUInt32(rand.Next(100)), Convert.ToUInt32(rand.Next(100)));
             //Debug.Log("Created new duallistic republic: " + res.GetName());

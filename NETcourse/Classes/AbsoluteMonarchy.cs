@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NETcourse.Classes
 {
-    class AbsoluteMonarchy : Monarchy
+    [Serializable]
+    [DataContract]
+    public class AbsoluteMonarchy : Monarchy
     {
-        private int monarchAuthority;
+        [DataMember]
+        public int monarchAuthority;
+
+        public AbsoluteMonarchy(): base() { }
 
         public AbsoluteMonarchy(String name, String capitalName, int population, int treasury,
             String monarchTitle, String monarchName, String monarchDynasty, uint authority)
@@ -56,6 +65,5 @@ namespace NETcourse.Classes
             if (monarchAuthority < 0)
                 monarchAuthority = 0;
         }
-
     }
 }

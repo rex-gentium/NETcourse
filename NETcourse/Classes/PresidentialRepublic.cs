@@ -2,14 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    class PresidentialRepublic : Republic, IPersonalizable<Republic>
+    [Serializable]
+    [DataContract]
+    public class PresidentialRepublic : Republic, IPersonalizable<Republic>
     {
+        [DataMember]
         public int presidentApproval;
+
+        public PresidentialRepublic(): base() { }
 
         public PresidentialRepublic(String name, String capitalName, int population,
             int treasury, String presidentName, DateTime inaugurationDate,

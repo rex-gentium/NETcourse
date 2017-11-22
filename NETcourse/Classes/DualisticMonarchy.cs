@@ -2,15 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NETcourse.Classes
 {
-    class DualisticMonarchy : Monarchy
+    [Serializable]
+    [DataContract]
+    public class DualisticMonarchy : Monarchy
     {
-        private int monarchAuthority;
-        private int parliamentApproval;
+        [DataMember]
+        public int monarchAuthority;
+        [DataMember]
+        public int parliamentApproval;
+
+        public DualisticMonarchy(): base() { }
 
         public DualisticMonarchy(String name, String capitalName, int population, int treasury,
             String monarchTitle, String monarchName, String monarchDynasty, uint monarchAuthority, uint parliamentApproval)
